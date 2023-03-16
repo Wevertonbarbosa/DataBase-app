@@ -60,4 +60,13 @@ public class Inscritos {
     public void setCpf(String cpf) {
         this.cpf = cpf;
     }
+
+    public void atualizar(Inscritos inscritos){
+        this.nome = inscritos.getNome();
+        this.email = inscritos.getEmail();
+        this.telefone = inscritos.getTelefone();
+        this.cpf = inscritos.getCpf();
+    }
+
+
 }
