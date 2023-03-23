@@ -18,28 +18,23 @@ public class appController {
     private InscritoRepository inscritoRepository;
 
 
-    //    Read ler
+    @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping
     public Iterable<Inscritos> list() {
         return inscritoRepository.findAll();//Select All Mostrar todos os dados das tabelas
     }
 
+    @GetMapping("/{id}")
+    public Inscritos mostrarPorId(@PathVariable long id) {
+        Optional<Inscritos> inscritosOptional = inscritoRepository.findById(id);
 
-    //  Buscando pelo Id do Inscrito.
-//    @GetMapping
-//    public Inscritos mostrarPorId(@PathVariable long id) {
-//        Optional<Inscritos> inscritosOptional = inscritoRepository.findById(id);
-//
-//        if (inscritosOptional.isPresent()) {
-//            return inscritosOptional.get();
-//        }
-//
-//        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-//    }
+        if (inscritosOptional.isPresent()) {
+            return inscritosOptional.get();
+        }
 
-    //    Create criar
+        throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+    }
 
-//    Permitindo essa url fazer as requisições neste banco de dados Url da minha aplicação em angular!
     @CrossOrigin(origins = "http://localhost:8100")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -47,7 +42,8 @@ public class appController {
         inscritoRepository.save(inscrito);
     }
 
-//    Up Date atualizar
+
+    @CrossOrigin(origins = "http://localhost:8100")
     @PutMapping("/{id}")
     private void alterar(@PathVariable long id, @RequestBody Inscritos inscritos) {
         Optional<Inscritos> inscritosOptional = inscritoRepository.findById(id);
@@ -64,6 +60,7 @@ public class appController {
 
 
 //    Delete deletar Inscrito
+    @CrossOrigin(origins = "http://localhost:8100")
     @DeleteMapping("/{id}")
     private void deletarInscrito(@PathVariable long id){
         Optional<Inscritos> inscritosOptional = inscritoRepository.findById(id);
