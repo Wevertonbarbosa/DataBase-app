@@ -17,13 +17,12 @@ public class appController {
     @Autowired
     private InscritoRepository inscritoRepository;
 
-
     @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping
     public Iterable<Inscritos> list() {
         return inscritoRepository.findAll();//Select All Mostrar todos os dados das tabelas
     }
-
+    @CrossOrigin(origins = "http://localhost:8100")
     @GetMapping("/{id}")
     public Inscritos mostrarPorId(@PathVariable long id) {
         Optional<Inscritos> inscritosOptional = inscritoRepository.findById(id);
@@ -59,13 +58,13 @@ public class appController {
     }
 
 
-//    Delete deletar Inscrito
     @CrossOrigin(origins = "http://localhost:8100")
     @DeleteMapping("/{id}")
     private void deletarInscrito(@PathVariable long id){
         Optional<Inscritos> inscritosOptional = inscritoRepository.findById(id);
 
         if (inscritosOptional.isEmpty()){
+
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
 
